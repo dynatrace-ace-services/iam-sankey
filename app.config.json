@@ -1,0 +1,25 @@
+{
+  "$schema": "./.dt-app/app.config.schema.json",
+  "environmentUrl": "https://<tenantid>.apps.dynatrace.com/",
+  "app": {
+    "name": "IAM Sankey",
+    "version": "0.1.0",
+    "id": "my.iam.sankey",
+    "icon": "./assets/user-icon.svg",
+    "description": "IAM Groups → Policies → Boundaries visualizer (Grail lookup tables)",
+    "scopes": [
+      { "name": "state:user-app-states:read",  "comment": "Persist vault credentials config" },
+      { "name": "state:user-app-states:write", "comment": "Persist vault credentials config" },
+      { "name": "automation:workflows:read",          "comment": "Discover the IAM data-collector workflow by title" },
+      { "name": "automation:workflows:admin",         "comment": "Read and update the workflow actor for the current app user" },
+      { "name": "automation:workflows:run",           "comment": "Trigger the IAM data-collector workflow" },
+      { "name": "credential-vault:credentials:read",  "comment": "List and verify existing vault credential entry" },
+      { "name": "credential-vault:credentials:write", "comment": "Create or update vault credential entry on Save" },
+      { "name": "storage:bucket-data:read", "comment": "DQL queries on Grail lookup tables (latest/previous/older slots)" },
+      { "name": "davis-ai:conversations:write", "comment": "Generate IAM explanations and answer policy questions with Davis AI" },
+      { "name": "davis:analyzers:execute", "comment": "Execute Davis AI analysis for IAM explanations and questions" },
+      { "name": "davis-copilot:conversations:execute", "comment": "Execute Davis Copilot conversations for the IAM assistant" },
+      { "name": "ai:operator:execute", "comment": "Execute the Dynatrace Intelligence operator used by the IAM assistant" }
+    ]
+  }
+}

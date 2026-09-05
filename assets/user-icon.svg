@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">IAM user</title>
+  <desc id="desc">Simple user silhouette icon</desc>
+  <circle cx="32" cy="32" r="30" fill="#161b22" stroke="#00b4d8" stroke-width="3"/>
+  <circle cx="32" cy="24" r="10" fill="#00b4d8"/>
+  <path d="M14 51c2.8-9.3 9-14 18-14s15.2 4.7 18 14" fill="#00b4d8"/>
+</svg>
