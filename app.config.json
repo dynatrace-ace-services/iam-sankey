@@ -1,6 +1,6 @@
 {
   "$schema": "./.dt-app/app.config.schema.json",
-  "environmentUrl": "https://acedynatracelab2.apps.dynatrace.com/",
+  "environmentUrl": "https://<tenant>.apps.dynatrace.com/",
   "app": {
     "name": "IAM Sankey",
     "version": "0.1.1",
