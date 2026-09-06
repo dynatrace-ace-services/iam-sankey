@@ -2,7 +2,7 @@
 
 Unlock Dynatrace IAM visibility by exploring, auditing, and comparing groups, policies, permission boundaries, and user access.
 
-<img width="1848" height="692" alt="image" src="https://github.com/user-attachments/assets/ee5820b2-28f3-4429-afa9-22aeb8a7e3aa" />
+<img width="1821" height="915" alt="image" src="https://github.com/user-attachments/assets/4f597a9f-e91f-412a-8c1e-16130648e074" />
 
     Click a Group to highlight its bound Policies and Boundaries.  
     Click a Boundary to trace back which Policies and Groups reference it.
