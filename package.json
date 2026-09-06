@@ -1,6 +1,6 @@
 {
   "name": "iam-sankey",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "IAM Policy Sankey — Workflow-backed Groups→Policies→Boundaries visualizer",
   "scripts": {
     "build":     "dt-app build",

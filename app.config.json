@@ -1,9 +1,9 @@
 {
   "$schema": "./.dt-app/app.config.schema.json",
-  "environmentUrl": "https://<tenantid>.apps.dynatrace.com/",
+  "environmentUrl": "https://acedynatracelab2.apps.dynatrace.com/",
   "app": {
     "name": "IAM Sankey",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "id": "my.iam.sankey",
     "icon": "./assets/user-icon.svg",
     "description": "IAM Groups → Policies → Boundaries visualizer (Grail lookup tables)",

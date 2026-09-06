@@ -10,6 +10,10 @@ dist/
 # Claude Code
 .claude/
 
+# AI development instructions
+AGENTS.md
+CLAUDE.md
+
 # Local environment / secrets
 .env
 .env.*

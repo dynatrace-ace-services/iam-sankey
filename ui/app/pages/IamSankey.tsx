@@ -608,6 +608,7 @@ export function IamSankey() {
     setRefreshStatus("running");
     setStatusMsg("Starting workflow…");
     try {
+      /*
       const actor = userEmail.trim().toLowerCase();
       if (!actor) throw new Error("Unable to determine the current user email for the workflow actor.");
       const currentWorkflow = await workflowsClient.getWorkflow({ id: workflowId });
@@ -615,6 +616,7 @@ export function IamSankey() {
         setStatusMsg("Updating workflow actor…");
         await workflowsClient.patchWorkflow({ id: workflowId, body: { actor } });
       }
+    */
       // Use the live input value so Refresh works even if user didn't press Enter
       const emailForWorkflow = filterEmailInput.trim().toLowerCase();
       if (emailForWorkflow && emailForWorkflow !== filterEmail) {

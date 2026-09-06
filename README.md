@@ -1,6 +1,6 @@
 # IAM Sankey
 
-Gain full visibility into IAM Permission by exploring, auditing, and comparing Groups, Policies, Permission Boundaries, and user access over time.
+Unlock Dynatrace IAM visibility by exploring, auditing, and comparing groups, policies, permission boundaries, and user access.
 
 <img width="1848" height="692" alt="image" src="https://github.com/user-attachments/assets/ee5820b2-28f3-4429-afa9-22aeb8a7e3aa" />
 
@@ -27,6 +27,8 @@ Claude & Microsoft Copilot — Development
 3. [Installation](#installation)
    - [Step 1 — Deploy the App](#step-1--deploy-the-app)
    - [Step 2 — Import the Workflow](#step-2--import-the-workflow)
+   - [Step 3 — Add Service User](#step-3--add-service-user)
+   
 4. [First Use](#first-use)
 5. [OAuth Scopes for the IAM API](#oauth-scopes-for-the-iam-api)
 6. [How Data Storage Works](#how-data-storage-works)
@@ -74,98 +76,14 @@ Claude & Microsoft Copilot — Development
 
 | Permission  | scopes |
 |-------------|-------|
-| IAM Sankey user group | `automation:workflows:admin`, `automation:workflows:read`, `automation:workflows:write`, `automation:workflows:run`, `vault:vaults:read`, `vault:vaults:write`, `storage:bucket-data:read`, `storage:bucket-definitions:read`, `app-engine:edge-connects:connect` (granted when app is first installed) |
-| Dynatrace IAM OAuth 2.0 Client | With scopes `iam-policies-management`, `account-idm-read` |
-| Custom App deployment | `app-engine:apps:run`, `app-engine:apps:install` | 
+| Component | Permissions |
+| IAM Sankey user group | <br> `View and manage users and groups` <br>` Admin User`, `ViewEnvironment`, `Read Sensitive Data`  <br> `ALLOW storage:files:read WHERE storage:file-path startsWith "/lookups/iam-sankey";` <br>` ALLOW storage:files:write WHERE storage:file-path startsWith "/lookups/iam-sankey";` | 
+| OAuth 2.0 Client | `iam-policies-management`<br>`account-idm-read` |
+| Custom App deployment | `app-engine:apps:run`<br>`app-engine:apps:install` |
 
-
----
-
-### IAM Sankey user group permissions
-
----
-
-
-##### Vault
-
-| Scope | Purpose |
-|---|---|
-| `vault:vaults:read` | Read existing vault entries (credentials, secrets, tokens) used as workflow parameters |
-| `vault:vaults:write` | Create and update vault entries |
-
-##### Workflows
-
-| Scope | Purpose |
-|---|---|
-| `automation:workflows:read` | List and view existing workflows |
-| `automation:workflows:write` | Edit and update workflow definitions (actors, actions, triggers) |
-| `automation:workflows:run` | Execute a workflow on demand, including passing runtime parameters (e.g. vault references, custom inputs) |
-| `automation:workflows:admin` | Full administrative control over workflows (required for actor management and ownership changes) |
-
-##### Storage
-
-| Scope | Purpose |
-|---|---|
-| `storage:bucket-definitions:read` | List available storage buckets |
-| `storage:bucket-data:read` | Read files written to storage buckets by workflows |
-
-##### lookup table access
-
-To restrict access to IAM Sankey lookup tables, grant read access only to the dedicated IAM Sankey user group and explicitly deny access to all other users.
-
-**Allow rule**
-```text
-ALLOW storage:files:read WHERE storage:file-path startsWith "/lookups/iam-sankey"
-```
-
-**Deny rule**
-```text
-DENY storage:files:read WHERE storage:file-path startsWith "/lookups/iam-sankey"
-```
-
----
-
-### Workflow Permissions
-
----
-
-###### Vault
-
-| Scope | Purpose |
-|---|---|
-| `vault:vaults:read` | Retrieve the OAuth2 client credentials stored in the vault, used to authenticate against the Dynatrace Account Management API |
-
-###### Account Management API (OAuth2 — via vault credentials)
-
-
-| OAuth2 Scope | Purpose |
-|---|---|
-| `account-idm-read` | Read IAM data: users, user groups, policies, and permission boundaries from `myaccount` |
-| `account-env-read` | Read environment-level permission assignments and policy bindings |
-
-
-###### Storage
-
-| Scope | Purpose |
-|---|---|
-| `storage:bucket-definitions:read` | List available storage buckets in the tenant |
-| `storage:bucket-data:read` | Read files previously written to storage buckets (e.g. cached snapshots, previous run outputs) |
-| `storage:bucket-data:write` | Write output files to storage buckets (e.g. IAM snapshots, Sankey graph data, audit results) |
-
-
----
-
-##### Summary Table
-
-| Identity | Scope | Reason |
-|---|---|---|
-| Workflow | `vault:vaults:read` | Fetch OAuth2 credentials from vault |
-| Workflow (OAuth2 client) | `account-idm-read` | Read users, groups, policies, boundaries |
-| Workflow (OAuth2 client) | `account-env-read` | Read environment permission bindings |
-| Workflow | `storage:bucket-definitions:read` | Discover available buckets |
-| Workflow | `storage:bucket-data:read` | Read existing storage files |
-| Workflow | `storage:bucket-data:write` | Write IAM data output to storage |
-
+| Settings | Requirement |
+|------------|------------|
+| External requests (outbound connections) | `api.dynatrace.com`, `sso.dynatrace.com` |
 ---
 
 ## Installation
@@ -207,6 +125,21 @@ The app discovers the workflow by its exact title **`IAM Data Collector`**.
 ```bash
 dtctl workflow apply -f workflow/iam-data-collector.workflow.json
 ```
+
+### Step 3 — Add Service User
+- **Account** - Create a service user with the following permissions:
+
+```serviceuser
+ALLOW app-engine:apps:run, app-engine:functions:run;
+ALLOW automation:workflows:read, automation:workflows:run;
+ALLOW credential-vault:entries:read, environment-api:credentials:read;
+ALLOW storage:files:read WHERE storage:file-path startsWith "/lookups/iam-sankey"; 
+ALLOW storage:files:write WHERE storage:file-path startsWith "/lookups/iam-sankey"; 
+```
+
+- **Workflow** - Use this service user as the actor for the  `IAM Data Collector` workflow
+
+- **Vault** – After completing the steps in the [First Use](#first-use) section and saving the credentials, grant this service user access to the vault `custom-app-iam-policy-`
 
 ---
 

@@ -30,7 +30,7 @@ Full Policy:
 
 The user asks: {{userQuestion}}
 
-Answer in English. Be structured, use bullet points, provide a clear recommendation at the end. If the question is about a specific role (e.g. "SCOM Infra"), evaluate whether the permissions are appropriate, too broad, too restrictive, or missing key permissions for that role.`;
+Answer in English. Be structured, use bullet points, provide a clear recommendation at the end. If the question is about a specific role, evaluate whether the permissions are appropriate, too broad, too restrictive, or missing key permissions for that role.`;
 
 function fill(template: string, values: Record<string, string | undefined>): string {
   return template.replace(/\{\{(\w+)\}\}/g, (_, key: string) => values[key] ?? "(not available)");
