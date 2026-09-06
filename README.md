@@ -406,12 +406,3 @@ iam-sankey/
 | **Arrows not drawn** | Selected item scrolled out of view | Scroll so the selected item is visible; arrows follow visible items only |
 
 ---
-
-## Security
-
-- **No credentials in code or state.** Client ID and secret are stored in the Dynatrace Credential Vault only.
-- **Workflow-only IAM access.** The app never calls `api.dynatrace.com` or `sso.dynatrace.com` directly — that path is blocked by the AppEngine service worker. All external calls happen inside the Workflow runtime.
-- **Vault ID only in User App State.** The User App State key `iam-vault-config` stores `{ accountId, vaultId }` — the vault entry ID, not the secret itself.
-- **Lookup tables are tenant-scoped.** Data in `/lookups/iam-sankey/` is accessible only within the Dynatrace tenant.
-
----
