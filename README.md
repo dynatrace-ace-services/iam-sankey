@@ -137,6 +137,8 @@ ALLOW storage:files:read WHERE storage:file-path startsWith "/lookups/iam-sankey
 ALLOW storage:files:write WHERE storage:file-path startsWith "/lookups/iam-sankey"; 
 ```
 
+Add classic policy : `policy View environment` and  `Read Sensitive Data`
+
 - **Workflow** - Use this service user as the actor for the  `IAM Data Collector` workflow
 
 - **Vault** – After completing the steps in the [First Use](#first-use) section and saving the credentials, grant this service user access to the vault `custom-app-iam-policy-`
