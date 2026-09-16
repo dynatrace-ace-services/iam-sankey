@@ -77,7 +77,7 @@ Claude & Microsoft Copilot — Development
 | Permission  | scopes |
 |-------------|-------|
 | Component | Permissions |
-| IAM Sankey user group | <br> `View and manage users and groups` <br>` Admin User`, `ViewEnvironment`, `Read Sensitive Data`  <br> `ALLOW storage:files:read WHERE storage:file-path startsWith "/lookups/iam-sankey";` <br>` ALLOW storage:files:write WHERE storage:file-path startsWith "/lookups/iam-sankey";` | 
+| IAM Sankey user group | ` Admin User`, `Read Sensitive Data`, `ALLOW environment:roles:viewer`;  <br> `ALLOW storage:files:read WHERE storage:file-path startsWith "/lookups/iam-sankey";` <br>` ALLOW storage:files:write WHERE storage:file-path startsWith "/lookups/iam-sankey";` | 
 | OAuth 2.0 Client | `iam-policies-management`<br>`account-idm-read` |
 | Custom App deployment | `app-engine:apps:run`<br>`app-engine:apps:install` |
 
