@@ -1,6 +1,6 @@
 {
   "$schema": "./.dt-app/app.config.schema.json",
-  "environmentUrl": "https:///mna06920.apps.dynatrace.com/",
+  "environmentUrl": "https://<tenantid>.apps.dynatrace.com/",
   "app": {
     "name": "IAM Sankey",
     "version": "0.1.2",
@@ -16,6 +16,10 @@
       { "name": "environment-api:credentials:read",  "comment": "List and verify existing vault credential entry" },
       { "name": "environment-api:credentials:write", "comment": "Create or update vault credential entry on Save" },
       { "name": "storage:bucket-data:read", "comment": "DQL queries on Grail lookup tables (latest/previous/older slots)" },
+      { "name": "storage:files:read", "comment": "Read IAM Sankey lookup tables"},
+      { "name": "storage:files:write", "comment": "Write IAM Sankey lookup tables"},
+      { "name": "davis-ai:conversations:read", "comment": "Read Davis AI conversations for the IAM assistant" },
+      { "name": "davis:analyzers:read", "comment": "Read Davis AI analyzers for the IAM assistant" },
       { "name": "davis-ai:conversations:write", "comment": "Generate IAM explanations and answer policy questions with Davis AI" },
       { "name": "davis:analyzers:execute", "comment": "Execute Davis AI analysis for IAM explanations and questions" },
       { "name": "davis-copilot:conversations:execute", "comment": "Execute Davis Copilot conversations for the IAM assistant" },
